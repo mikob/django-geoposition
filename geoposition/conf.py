@@ -11,15 +11,9 @@ class AppSettings(object):
         'GOOGLE_MAPS_API_KEY': None,
     }
     prefix = 'GEOPOSITION'
-    required_settings = ['GOOGLE_MAPS_API_KEY']
 
     def __init__(self, django_settings):
         self.django_settings = django_settings
-
-        for setting in self.required_settings:
-            prefixed_name = '%s_%s' % (self.prefix, setting)
-            if not hasattr(self.django_settings, prefixed_name):
-                raise ImproperlyConfigured("The '%s' setting is required." % prefixed_name)
 
     def __getattr__(self, name):
         prefixed_name = '%s_%s' % (self.prefix, name)
